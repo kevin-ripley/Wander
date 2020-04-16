@@ -1,8 +1,13 @@
 package com.example.android.wander;
 
-import androidx.fragment.app.FragmentActivity;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -11,7 +16,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
@@ -23,6 +28,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.map_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Change the map type based on the user's selection.
+        switch (item.getItemId()) {
+            case R.id.normal_map:
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                return true;
+            case R.id.hybrid_map:
+                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                return true;
+            case R.id.satellite_map:
+                mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                return true;
+            case R.id.terrain_map:
+                mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
@@ -40,8 +73,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng ynp_lake = new LatLng(44, -110);
+        mMap.addMarker(new MarkerOptions().position(ynp_lake).title("Marker for Yellowstone Lake in YNP"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(ynp_lake));
     }
 }
