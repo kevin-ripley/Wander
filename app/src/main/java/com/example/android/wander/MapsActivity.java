@@ -77,7 +77,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Add a marker in Sydney and move the camera
         LatLng ynp_lake = new LatLng(44.441985, -110.336258);
         float zoom = 15;
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(ynp_lake));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ynp_lake, zoom));
         setMapLongClick(mMap);
     }
 
