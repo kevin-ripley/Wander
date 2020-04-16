@@ -15,6 +15,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
@@ -98,6 +100,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng ynp_lake = new LatLng(44.441985, -110.336258);
         float zoom = 10;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ynp_lake, zoom));
+
+        GroundOverlayOptions homeOverlay = new GroundOverlayOptions()
+                .image(BitmapDescriptorFactory.fromResource(R.drawable.android))
+                .position(ynp_lake, 100);
+
+        mMap.addGroundOverlay(homeOverlay);
         setMapLongClick(mMap);
         setPoiClick(mMap);
     }
@@ -114,7 +122,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 map.addMarker(new MarkerOptions()
                         .position(latLng)
                         .title(getString(R.string.dropped_pin))
-                        .snippet(snippet));
+                        .snippet(snippet)
+                        .icon(BitmapDescriptorFactory.defaultMarker
+                                (BitmapDescriptorFactory.HUE_BLUE)));
             }
         });
     }
