@@ -78,6 +78,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng ynp_lake = new LatLng(44.441985, -110.336258);
         float zoom = 15;
         mMap.moveCamera(CameraUpdateFactory.newLatLng(ynp_lake));
+        setMapLongClick(mMap);
     }
 
     private void setMapLongClick(final GoogleMap map) {
