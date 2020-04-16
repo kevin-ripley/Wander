@@ -16,6 +16,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Locale;
+
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -73,8 +75,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng ynp_lake = new LatLng(44, -110);
-        mMap.addMarker(new MarkerOptions().position(ynp_lake).title("Marker for Yellowstone Lake in YNP"));
+        LatLng ynp_lake = new LatLng(44.441985, -110.336258);
+        float zoom = 15;
         mMap.moveCamera(CameraUpdateFactory.newLatLng(ynp_lake));
+    }
+
+    private void setMapLongClick(final GoogleMap map) {
+        map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                String snippet = String.format(Locale.getDefault(),
+                        "Lat: %1$.5f, Long: %2$.5f",
+                        latLng.latitude,
+                        latLng.longitude);
+
+                map.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title(getString(R.string.dropped_pin))
+                        .snippet(snippet));
+            }
+        });
     }
 }
